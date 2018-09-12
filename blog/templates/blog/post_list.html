@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="listmain">
+{% for post in posts %}
+	<div class="listitem">
+		<div class="date">
+		<p><small>Piblished on: {{ post.published_date }}</small></p>
+	</div>
+		<h1><a href="{{ post.get_absolute_url }}">{{ post.title|title }}</a></h1>
+		<p>{{ post.text|truncatechars:800 }}</p>
+	</div>
+{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ post.title }}||{{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="listmain">
+	<div class="listitem">
+		<div class="date">
+		<p><small>Piblished on: {{ post.published_date }}</small></p>
+	</div>
+		<a class="btn btn-default" href="{% url 'post_list' %}">
+          <span class="glyphicon glyphicon-chevron-left"></span>back</a>
+		<div class="listbutton">
+		{% if user.is_authenticated %}
+		<a class="btn btn-default" href="{% url 'post_delete' id=post.id %}"><span class="glyphicon glyphicon-remove"></span>Delete</a>
+     	<a class="btn btn-default" href="{% url 'post_update' id=post.id %}"><span class="glyphicon glyphicon-pencil"></span>Update</a> 
+        
+		{% endif %}
+		</div>
+		<h1>{{ post.title|title }}</h1>
+		<p>{{ post.text|linebreaks }}</p>
+	</div>
+	<a class="btn btn-default" href="{% url 'post_list' %}"><span class="glyphicon glyphicon-chevron-left"></span>back</a>
+</div>
+
+<hr>
+<a class="btn btn-default" href="{% url 'add_comment_to_post' id=post.id %}">Add comment</a>
+{% for comment in post.comments.all %}
+    <div class="comment">
+        <p>{{ comment.created_date }}</p>
+        <strong>{{ comment.author }}</strong>
+        <p>{{ comment.text|linebreaksbr }}</p>
+    </div>
+{% empty %}
+    <p>No comments here yet :( </p>
+{% endfor %}
+{% endblock %}

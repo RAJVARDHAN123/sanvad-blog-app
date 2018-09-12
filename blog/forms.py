@@ -1,0 +1,20 @@
+from django import forms
+from .models import Post, Comment
+
+class PostFormCreate(forms.ModelForm):
+	class Meta:
+		model = Post
+		fields = [
+			'title',
+			'text',
+			'published_date',
+		]
+
+class CommentForm(forms.ModelForm):
+
+	class Meta:
+		model = Comment
+		fields = [
+		'author',
+		'text',
+		]

@@ -1,0 +1,18 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+    {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+    <div class="form">
+    <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+        <p>Username:</p>
+        <input type="username" {{ form.username }}><br><br>
+        <p>Password:</p>
+        <input type="password" {{ form.password }}><br><br>
+        <button type="submit" class="btn btn-primary btn-lg">Login</button>
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+</div>
+{% endblock %}
